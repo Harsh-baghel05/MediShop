@@ -4,6 +4,7 @@ import ProductCard from "../components/ProductCard.jsx";
 import ProductGrid from "./ProductGrid.jsx";
 import { CartContext } from "../context/CartContext.jsx";
 import { api } from "../api.js";
+import { dummyProducts } from "../dummyData.js";
 
 export default function Home() {
   const [searchParams] = useSearchParams();
@@ -17,6 +18,7 @@ export default function Home() {
         setFeatured(f);
       } catch (e) {
         console.error(e);
+        setFeatured(dummyProducts.filter(p => p.featured));
       }
     })();
   }, []);

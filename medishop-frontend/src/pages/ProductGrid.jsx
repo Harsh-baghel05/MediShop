@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { getProducts } from "../api.js";
 import ProductCard from "../components/ProductCard.jsx";
 import { CartContext } from "../context/CartContext.jsx";
+import { dummyProducts } from "../dummyData.js";
 
 export default function ProductGrid({ products, limit, query }) {
   const [list, setList] = useState([]);
@@ -21,6 +22,7 @@ export default function ProductGrid({ products, limit, query }) {
       setList(data);
     } catch (e) {
       console.error('Fetch products error', e);
+      setList(dummyProducts);
     }
   }
 

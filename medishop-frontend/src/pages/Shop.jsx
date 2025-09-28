@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
 import { getProducts } from "../api.js";
 import { CartContext } from "../context/CartContext.jsx";
+import { dummyProducts } from "../dummyData.js";
 
 export default function Shop() {
   const [searchParams] = useSearchParams();
@@ -24,7 +25,10 @@ export default function Shop() {
     try {
       const data = await getProducts();
       setProducts(data);
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error(e);
+      setProducts(dummyProducts);
+    }
   }
 
   const list = products.filter(p => {
