@@ -13,6 +13,7 @@ import ProductDetail from "./pages/ProductDetails";
 import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useContext(AuthContext);
@@ -20,6 +21,19 @@ function ProtectedRoute({ children }) {
   if (loading) return <div>Loading...</div>;
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+  return children;
+}
+
+function AdminProtectedRoute({ children }) {
+  const { user, loading } = useContext(AuthContext);
+
+  if (loading) return <div>Loading...</div>;
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  if (user.role !== 'admin') {
+    return <Navigate to="/shop" replace />;
   }
   return children;
 }
@@ -58,6 +72,14 @@ function App() {
             <ProtectedRoute>
               <Checkout />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminProtectedRoute>
+              <AdminDashboard />
+            </AdminProtectedRoute>
           }
         />
       </Routes>

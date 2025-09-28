@@ -52,6 +52,9 @@ export default function Navbar() {
             <>
               <Link to="/wishlist" className="icon-btn">♡ {wishlist.length}</Link>
               <Link to="/cart" className="icon-btn">🛒 {cart.length}</Link>
+              {user.role === 'admin' && (
+                <Link to="/admin" className="btn small">Admin Panel</Link>
+              )}
             </>
           )}
           {user ? (

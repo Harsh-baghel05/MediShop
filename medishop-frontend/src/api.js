@@ -58,3 +58,20 @@ export async function getWishlist() {
 export async function toggleWishlist(productId) {
   return api('/wishlist/toggle', { method: 'POST', body: JSON.stringify({ productId }) });
 }
+
+// Admin
+export async function getUsers() {
+  return api('/admin/users');
+}
+
+export async function createProduct(productData) {
+  return api('/products', { method: 'POST', body: JSON.stringify(productData) });
+}
+
+export async function updateProduct(id, productData) {
+  return api(`/products/${id}`, { method: 'PUT', body: JSON.stringify(productData) });
+}
+
+export async function deleteProduct(id) {
+  return api(`/products/${id}`, { method: 'DELETE' });
+}
