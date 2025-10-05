@@ -31,9 +31,6 @@ export default function Home() {
           <p>Order your medicine online with us</p>
           <Link to="/shop" className="btn">Get Fast Delivery</Link>
         </div>
-        <div className="hero-image">
-          <img src="https://picsum.photos/seed/hero/600/400" alt="health" style={{width:360,borderRadius:12}}/>
-        </div>
       </section>
 
       <section className="categories">

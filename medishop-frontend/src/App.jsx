@@ -14,6 +14,8 @@ import Checkout from "./pages/Checkout";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import AdminDashboard from "./pages/AdminDashboard";
+import EditUser from "./pages/EditUser";
+import EditProduct from "./pages/EditProduct";
 
 function ProtectedRoute({ children }) {
   const { user, loading } = useContext(AuthContext);
@@ -79,6 +81,22 @@ function App() {
           element={
             <AdminProtectedRoute>
               <AdminDashboard />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-user/:id"
+          element={
+            <AdminProtectedRoute>
+              <EditUser />
+            </AdminProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/edit-product/:id"
+          element={
+            <AdminProtectedRoute>
+              <EditProduct />
             </AdminProtectedRoute>
           }
         />

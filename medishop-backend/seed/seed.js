@@ -25,7 +25,7 @@ const products = Array.from({ length: 40 }).map((_, i) => {
     description: "Reliable pharmacy item. Use as directed.",
     price: Math.floor(Math.random() * 500) + 20,
     stock: Math.floor(Math.random() * 100),
-    image: `https://source.unsplash.com/400x300/?${keyword}`,
+    image: `https://picsum.photos/400/300?random=${i}`,
     category: category,
     featured: i % 6 === 0,
   };

@@ -37,6 +37,10 @@ export async function getProduct(id) {
   return api(`/products/${id}`);
 }
 
+export async function getProductById(id) {
+  return api(`/products/${id}`);
+}
+
 // Cart
 export async function getCart() {
   return api('/cart');
@@ -62,6 +66,18 @@ export async function toggleWishlist(productId) {
 // Admin
 export async function getUsers() {
   return api('/admin/users');
+}
+
+export async function getUserById(id) {
+  return api(`/admin/users/${id}`);
+}
+
+export async function updateUser(id, userData) {
+  return api(`/admin/users/${id}`, { method: 'PUT', body: JSON.stringify(userData) });
+}
+
+export async function deleteUser(id) {
+  return api(`/admin/users/${id}`, { method: 'DELETE' });
 }
 
 export async function createProduct(productData) {

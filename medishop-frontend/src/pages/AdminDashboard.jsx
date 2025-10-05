@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.jsx";
-import { getUsers, getProducts, deleteProduct } from "../api.js";
+import { getUsers, getProducts, deleteProduct, deleteUser } from "../api.js";
+import ProductCard from "../components/ProductCard.jsx";
 
 export default function AdminDashboard() {
   const { user } = useContext(AuthContext);
@@ -52,24 +53,36 @@ export default function AdminDashboard() {
       <div className="admin-sections">
         <div className="admin-section">
           <h3>Manage Users ({users.length})</h3>
-          <div className="user-list">
-            {users.map(u => (
-              <div key={u._id} className="user-item">
-                <span>{u.name} - {u.email} ({u.role})</span>
-                {/* Add edit/delete if needed */}
-              </div>
-            ))}
-          </div>
+<div className="user-list">
+  {users.map(u => (
+    <div key={u._id} className="user-item">
+      <span>{u.name} - {u.email} ({u.role})</span>
+      <button className="btn small" onClick={() => nav(`/admin/edit-user/${u._id}`)}>Edit</button>
+      <button className="btn small danger" onClick={async () => {
+        if (window.confirm('Delete this user?')) {
+          try {
+            await deleteUser(u._id);
+            setUsers(users.filter(user => user._id !== u._id));
+          } catch (err) {
+            alert('Error deleting user: ' + err.message);
+          }
+        }
+      }}>Delete</button>
+    </div>
+  ))}
+</div>
         </div>
         <div className="admin-section">
           <h3>Manage Products ({products.length})</h3>
-          <div className="product-list">
+          <div className="product-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(250px,1fr))', gap: '16px' }}>
             {products.map(p => (
-              <div key={p._id} className="product-item">
-                <span>{p.name} - ${p.price}</span>
-                <button className="btn small" onClick={() => nav(`/product/${p._id}`)}>View</button>
-                <button className="btn small outline" onClick={() => {/* Edit logic: nav to edit form */}}>Edit</button>
-                <button className="btn small danger" onClick={() => handleDeleteProduct(p._id)}>Delete</button>
+              <div key={p._id} className="product-item" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <ProductCard product={p} onAdd={() => {}} onToggle={() => {}} />
+                <div style={{ display: 'flex', flexDirection: 'column', marginTop: '8px', width: '100%' }}>
+                  <button className="btn small" onClick={() => nav(`/product/${p._id}`)} style={{ marginBottom: '8px' }}>View</button>
+                  <button className="btn small outline" onClick={() => nav(`/admin/edit-product/${p._id}`)} style={{ marginBottom: '8px' }}>Edit</button>
+                  <button className="btn small danger" onClick={() => handleDeleteProduct(p._id)}>Delete</button>
+                </div>
               </div>
             ))}
           </div>
